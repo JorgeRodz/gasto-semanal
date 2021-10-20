@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Error from "./Error";
+import { nanoid } from "nanoid";
 
-const Formulario = () => {
+const Formulario = ({ agregarNuevoGasto }) => {
   const [nombreGasto, guardarNombreGasto] = useState("");
-  const [cantidad, guardarCantidad] = useState(0);
+  const [cantidad, guardarCantidad] = useState("");
   const [error, guardarError] = useState({
     error: false,
     mensaje: "",
@@ -21,13 +22,21 @@ const Formulario = () => {
       guardarError({ error: true, mensaje: "El gasto debe de ser mayor a 0" });
       return;
     }
-
-    // construir el gasto
     guardarError({ error: false, mensaje: "" });
 
+    // construir el gasto
+    const gasto = {
+      nombreGasto,
+      cantidad,
+      id: nanoid(),
+    };
+
     // pasar el gasto al componente principal
+    agregarNuevoGasto(gasto);
 
     // resetear el form
+    guardarNombreGasto("");
+    guardarCantidad("");
   };
 
   return (
@@ -55,7 +64,8 @@ const Formulario = () => {
           type="number"
           className="u-full-width"
           placeholder="Ej. 300"
-          onChange={(event) => guardarCantidad(+event.target.value)}
+          value={cantidad}
+          onChange={(event) => guardarCantidad(parseInt(event.target.value))}
         />
       </div>
       <input
