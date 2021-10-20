@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Error from "./Error";
 
 // prettier-ignore
@@ -56,6 +57,12 @@ const Pregunta = ({ guardarPresupuesto, guardarRestante, actualizarPregunta,}) =
       </form>
     </>
   );
+};
+
+Pregunta.protoTypes = {
+  guardarPresupuesto: PropTypes.func.isRequired,
+  guardarRestante: PropTypes.func.isRequired,
+  actualizarPregunta: PropTypes.func.isRequired,
 };
 
 export default Pregunta;
